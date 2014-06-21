@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <!--
+     http://www.tramontana.co.hu/wix/
+http://www.dalun.com/wix/04.25.2007.htm
+   -->
+  <PropertyGroup>
+    <ToolPath Condition=" $(ToolPath) == ''">$(TOOLS)\WIX\v2.0.4611.0</ToolPath>
+    <OutputName Condition="$(OutputName) == ''">$(Configuration)Jenkins</OutputName>
+    <OutputType Condition="$(OutputType)==''">package</OutputType>
+    <BaseInputPath Condition="$(BaseInputPath)==''">.</BaseInputPath>
+    <!--       $(PackageRoot)$(Configuration) -->
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(BaseInputPath)\jenkins.wxs"/>
+  </ItemGroup>
+  <Import Project="$(ToolPath)\wix.targets"/>
+</Project>
