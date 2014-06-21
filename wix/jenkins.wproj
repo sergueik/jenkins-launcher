@@ -1,18 +1,25 @@
 <?xml version="1.0"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
-  <!--
-     http://www.tramontana.co.hu/wix/
-http://www.dalun.com/wix/04.25.2007.htm
-   -->
-  <PropertyGroup>
-    <ToolPath Condition=" $(ToolPath) == ''">$(TOOLS)\WIX\v2.0.4611.0</ToolPath>
-    <OutputName Condition="$(OutputName) == ''">$(Configuration)Jenkins</OutputName>
-    <OutputType Condition="$(OutputType)==''">package</OutputType>
-    <BaseInputPath Condition="$(BaseInputPath)==''">.</BaseInputPath>
-    <!--       $(PackageRoot)$(Configuration) -->
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="$(BaseInputPath)\jenkins.wxs"/>
-  </ItemGroup>
-  <Import Project="$(ToolPath)\wix.targets"/>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+        <PropertyGroup>
+    		<BaseInputPath Condition="$(BaseInputPath)==''">.</BaseInputPath>
+<!--
+http://stackoverflow.com/questions/626033/how-can-i-set-the-wix-installer-version-to-the-curent-build-version
+-->
+    		<VERSION Condition="$(VERSION)==''">0.1</VERSION>
+        </PropertyGroup>
+        <PropertyGroup>
+                <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+                <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+                <ProductVersion>3.0</ProductVersion>
+                <ProjectGuid>{c523055d-a9d0-4318-ae85-ec934d33204b}</ProjectGuid>
+                <SchemaVersion>2.0</SchemaVersion>
+		<OutputName Condition="$(OutputName) == ''">$(Configuration)Jenkins</OutputName>
+		<OutputType Condition="$(OutputType)==''">package</OutputType>
+		<WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">c:\Program Files\WiX Toolset v3.8\bin\Wix.targets</WixTargetsPath>
+		<DefineSolutionProperties>false</DefineSolutionProperties>
+        </PropertyGroup>
+	<ItemGroup>
+		<Compile Include="$(BaseInputPath)\jenkins.wxs"/>
+	</ItemGroup>
+	<Import Project="$(WixTargetsPath)" />
 </Project>

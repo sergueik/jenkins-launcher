@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+<?define VERSION="123" ?>
+<?define WAR="jenkins.war" ?>
+
   <Product Name='Jenkins $(var.VERSION)' Id='*' UpgradeCode='415933d8-4104-47c3-aee9-66b31de07a57'
     Language='1033' Codepage='1252' Version='0.$(var.VERSION).0' Manufacturer='Jenkins project'>
 
@@ -12,9 +15,9 @@
           <Directory Id='JenkinsDir' Name='Jenkins' FileSource=".">
               <Directory Id='JreDir' Name='jre'/>
               <Component Id='Main' Guid='e4a652bf-c210-4a45-95c4-5dc875b4880b'>
-                <File Name="jenkins.exe" Source='tmp/jenkins.exe' KeyPath='yes'/>
-                <File Name="jenkins.exe.config" Source='tmp/jenkins.exe.config' DiskId='1' />
-                <File Name="jenkins.xml" Source='tmp/jenkins.xml' DiskId='1' />
+                <File Name="jenkins.exe" Source='jenkins.exe' KeyPath='yes'/>
+                <File Name="jenkins.exe.config" Source='jenkins.exe.config' DiskId='1' />
+                <File Name="jenkins.xml" Source='jenkins.xml' DiskId='1' />
                 <File Name="jenkins.war" Source='$(var.WAR)' DiskId='1' />
                 <ServiceInstall Id="JenkinsService"
                      Name="Jenkins"
@@ -60,11 +63,13 @@
 
     <Feature Id='Complete' Level='1'>
       <ComponentRef Id='Main' />
+      <!-- 
       <ComponentGroupRef Id='JreComponents' />
+      -->
     </Feature>
-
+<!--
     <UI>
-      <UIRef Id="WixUI_Common" />
+      <UIRef Id="WixUI_Mondo" />
             <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
             <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
             <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
@@ -98,11 +103,13 @@
       <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="LaunchApplication">NOT installed</Publish>
     </UI>
 
-
+-->
     <!-- launch a browser at the end of the installation -->
+<!--
     <Property Id="WixShellExecTarget" Value="http://localhost:8080/"/>
     <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
-
+-->
   </Product>
 </Wix>
+
 
