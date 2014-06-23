@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.ServiceProcess;
-using System.Configuration;
+// using System.Configuration;
 
 namespace WindowsService
 {
@@ -10,9 +10,9 @@ namespace WindowsService
 
         public WindowsService()
         {
-            this.ServiceName = ConfigurationManager.AppSettings["service_name"];
-            this.EventLog.Source = ConfigurationManager.AppSettings["event_source"];
-            this.EventLog.Log = ConfigurationManager.AppSettings["event_log"];             
+            this.ServiceName = "dummy_service_4";
+            this.EventLog.Source = "dummy_service_4";
+            this.EventLog.Log = "Application" ;          
             this.CanHandlePowerEvent = true;
             this.CanHandleSessionChangeEvent = true;
             this.CanPauseAndContinue = true;
