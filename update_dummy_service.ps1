@@ -25,6 +25,7 @@ Service cannot be started. System.UnauthorizedAccessException: Access to the pat
 #>
 
 invoke-expression -command 'c:\windows\system32\sc.exe config "dummy_service_4" obj= LocalSystem'
+$service.Change($null,$null,$null,$null,$null,$false,"LocalSystem","")
 write-output "Started service ${ServiceName}"
 invoke-expression -command 'c:\windows\system32\sc.exe start "${ServiceName}"'
 start-sleep 15
