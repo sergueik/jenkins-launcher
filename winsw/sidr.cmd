@@ -6,7 +6,13 @@ set NETFXHOMEDIR=C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322
 call %TEMP%\%~n0.exe %*
 del /q %TEMP%\%~n0.exe
 goto :EOF
+S-1-5-19
+Name: NT Authority
+Description: Local Service
+
+http://support.microsoft.com/kb/243330
 */
+
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
