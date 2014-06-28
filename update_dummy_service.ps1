@@ -1,10 +1,9 @@
-$ServiceName = 'dummy_service_4'
+$ServiceName = 'dummy_service_3'
 $service = Get-WmiObject -Class Win32_Service -Filter "Name='${ServiceName}'"
-$jenkins_slave_home ='c:\java\Jenkins\slave\bin'
 
 if ($service -ne $null){
-$binaryPath = "${jenkins_slave_home}\WindowsService.exe"
-$realbinaryPath = "${jenkins_slave_home}\jenkins.exe"
+$binaryPath = "d:\java\Jenkins\slave\bin\WindowsService.exe"
+$realbinaryPath = "d:\java\Jenkins\slave\bin\jenkins.exe"
 write-output "Stopped service ${ServiceName}"
 invoke-expression -command 'c:\windows\system32\sc.exe stop "${ServiceName}"'
 
@@ -24,8 +23,7 @@ Service cannot be started. System.UnauthorizedAccessException: Access to the pat
 
 #>
 
-invoke-expression -command 'c:\windows\system32\sc.exe config "dummy_service_4" obj= LocalSystem'
-$service.Change($null,$null,$null,$null,$null,$false,"LocalSystem","")
+invoke-expression -command 'c:\windows\system32\sc.exe config "dummy_service_3" obj= LocalSystem'
 write-output "Started service ${ServiceName}"
 invoke-expression -command 'c:\windows\system32\sc.exe start "${ServiceName}"'
 start-sleep 15

@@ -10,8 +10,8 @@ namespace WindowsService
 
         public WindowsService()
         {
-            this.ServiceName = "dummy_service_4";
-            this.EventLog.Source = "dummy_service_4";
+            this.ServiceName = "dummy_service_3";
+            this.EventLog.Source = "dummy_service_3";
             this.EventLog.Log = "Application" ;          
             this.CanHandlePowerEvent = true;
             this.CanHandleSessionChangeEvent = true;
