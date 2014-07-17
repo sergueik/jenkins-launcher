@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+/* ==========================================================================
+Links:
+  System folders: http://msdn.microsoft.com/en-us/library/aa372057.aspx
+  WIX UI Wizards: http://wix.tramontana.co.hu/tutorial/user-interface/ui-wizardry
+  Propiedades: http://msdn.microsoft.com/en-us/library/aa370905(VS.85).aspx#operating_system_properties
+  Secuencia de ejecución puede ser consultado en ORCA: http://support.microsoft.com/kb/255905
+  Instalar ServicePack: http://wix.tramontana.co.hu/tutorial/upgrades-and-modularization/patchwork
+  Mezclar modulos: http://wix.tramontana.co.hu/tutorial/upgrades-and-modularization/mergers
+  Parse de caracteres, por ejemplo al usar operadores logicos: <![CDATA[IAgree <> "Yes"]]>: http://www.w3schools.com/xml/xml_cdata.asp
+  COM+: http://wix.tramontana.co.hu/tutorial/com-expression-syntax-miscellanea/com-applications
+========================================================================== */
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+	   xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+	   xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+
+  <?include $(var.ProjectDir)\Includes\Variables.wxi ?>
+
+  <Product Id="$(var.ProductId)" 
+	    	   Name="$(var.ProductName)" 
+		       Language="!(loc.LANG)" 
+		       Codepage="1252" 
+           Version="$(var.ProductVersion)" 
+		       Manufacturer="$(var.ManufacturerName)" 
+		       UpgradeCode="$(var.ProductUpgradeCode)">
+
+    <Package InstallerVersion="301" 
+				     Compressed="yes" 
+				     InstallScope="perMachine" 
+				     Description ="!(loc.ProductDescription)" 
+				     Keywords ="!(loc.KeyWords)" 
+				     SummaryCodepage ="1252" 
+				     Languages ="!(loc.LANG)" 
+				     Manufacturer="$(var.ManufacturerName)" 
+				     Comments ="!(loc.ProductComments)"/>
+
+    <!--Medios de almacenamiento-->
+    <Property Id="DiskPrompt" Value="$(var.ProductName) - [1]" />
+    <Media Id="1" Cabinet="Media1.cab" EmbedCab="yes" DiskPrompt="Disk 1" VolumeLabel="Disk1"/>
+
+    <Upgrade Id="$(var.ProductUpgradeCode)">
+      <UpgradeVersion Property="NEWER_VERSION_FOUND"
+                      OnlyDetect="yes"
+                      Minimum="$(var.ProductVersion)"
+                      IncludeMinimum="no"/>
+    </Upgrade>
+
+        <PropertyRef Id="LaunchConditionsFile" />
+    
+    <PropertyRef Id="INSTALLLOCATION" />
+
+    
+    <UI Id="Custom_WixUI_Mondo">
+      <UIRef Id="WixUI3_Mondo" />
+      <UIRef Id="WixUI2_Common" />		
+      <Property Id="ErrorDialog" Value="UI2ErrorDlg" />
+	  </UI>
+
+    <AdminUISequence/>
+    <InstallUISequence>
+      <Custom Action='CA_SetProperty_DATABASE_SERVERNAME' Before='AppSearch'><![CDATA[DATABASE_SERVERNAME = ""]]></Custom>
+
+
+      <Custom Action='CA_SetProperty_DATABASE_NAME' After='CA_SetProperty_DATABASE_SERVERNAME'><![CDATA[DATABASE_NAME = ""]]></Custom>      
+    </InstallUISequence>
+
+    <InstallExecuteSequence/>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="INSTALLDIR" LongName="Build Machine Health Program">
+          <Component Id="Engine" Guid="6e812d93-fd18-4f2e-bb3c-fa1eb63466bb">
+            <File Id="Application" Name="pophunt.exe" DiskId="1" src="a.txt">
+              <Shortcut Id="StartmenuPopupHunter" Directory="ProgramMenuDir" Name="POPUP~1" LongName="Popup Hunter" WorkingDirectory="INSTALLDIR" Icon="enemenurator.exe" IconIndex="0" Advertise="yes"/>
+            </File>
+            <RemoveFolder Id="RemoveProgramMenuDir" Directory="ProgramMenuDir" On="uninstall"/>
+          </Component>
+          <Component Id="Manual" Guid="016b9844-6254-4a1a-b03d-9722b4bb90d2">
+            <File Id="Manual" Name="Manual.pdf" DiskId="1" src="Manual.pdf" Vital="no">
+              <Shortcut Name="PopupMan" Id="PopupHunterManual" Directory="ProgramMenuDir" LongName="Popup Hunter Manual" WorkingDirectory="INSTALLDIR" Advertise="yes"/>
+            </File>
+          </Component>
+          <Component Id="Config" Guid="2d1bea50-1369-4fda-9103-f5052cc7bd8e">
+            <File Id="configuration" Name="config.xml" DiskId="1" src="config.xml"/>
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" LongName="Programs">
+        <Directory Id="ProgramMenuDir" LongName="Popup Hunter">
+   </Directory>
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop"/>
+    </Directory>
+    <Feature Id="Complete" Title="Complete Install" Description="The complete package -  all Features" Level="1" TypicalDefault="install" Display="expand" ConfigurableDirectory="INSTALLDIR">
+      <Feature Id="MainProgram" Title="Engine" Description="Main Feature" Level="1" TypicalDefault="install">
+        <ComponentRef Id="Engine"/>
+        <ComponentRef Id="Config"/>
+      </Feature>
+      <Feature Id="Documentation" Level="1">
+        <ComponentRef Id="Manual"/>
+      </Feature>
+      <Feature Id="Configuration" Level="1">
+        <ComponentRef Id="Config"/>
+      </Feature>
+    </Feature>
+    <Icon Id="enemenurator.exe" SourceFile="MainIcon.ico"/>
+    <Property Id="INSTALLDIR">
+      <RegistrySearch Id="AcmeFoobarRegistry" Type="directory" Root="HKLM" Key="Software\Acme\Foobar 1.0" Name="InstallDir"/>
+    </Property>
+    <Property Id="FILEEXISTS">
+      <DirectorySearch Id="CheckFileDir" Path="[INSTALLDIR]" Depth="0">
+        <FileSearch Id="CheckFile" Name="Lookfor.txt"/>
+      </DirectorySearch>
+    </Property>
+
+  </Product>
+</Wix>
