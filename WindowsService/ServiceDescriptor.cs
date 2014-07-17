@@ -53,6 +53,7 @@ namespace WindowsService
             // as well as trimming off ".vshost" suffix (which is used during debugging)
             string p = ExecutablePath;
             string baseName = Path.GetFileNameWithoutExtension(p);
+            baseName  = @"C:\developer\sergueik\csharp\jenkins-launcher\WindowsService\winsw";
             if (baseName.EndsWith(".vshost")) baseName = baseName.Substring(0, baseName.Length - 7);
             while (true)
             {

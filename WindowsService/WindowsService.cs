@@ -30,6 +30,9 @@ namespace WindowsService
             this.CanShutdown = true;
             this.CanStop = true;
 
+            this.descriptor = new ServiceDescriptor();
+            this.ServiceName = descriptor.Id;
+            this.systemShuttingdown = false;
             if (!EventLog.SourceExists(this.EventLog.Source))
                 EventLog.CreateEventSource(this.EventLog.Source, this.EventLog.Log);
         }
