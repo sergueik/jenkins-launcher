@@ -68,8 +68,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WindowsService.cs">
+
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ServiceDescriptor.cs" />
+
     <Compile Include="WindowsServiceInstaller.cs">
       <SubType>Component</SubType>
     </Compile>

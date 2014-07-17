@@ -2,16 +2,27 @@ using System;
 using System.Diagnostics;
 using System.ServiceProcess;
 // using System.Configuration;
+// using System.ServiceProcess;
+// using System.Management;
+// using Microsoft.Win32;
+
+using System.IO;
+using System.Collections.Generic;
+
 
 namespace WindowsService
 {
     class WindowsService : ServiceBase
     {
 
+        private bool systemShuttingdown;
+        private Dictionary<string, string> envs;
+        private ServiceDescriptor descriptor;
+
         public WindowsService()
         {
-            this.ServiceName = "dummy_service_3";
-            this.EventLog.Source = "dummy_service_3";
+            this.ServiceName = "winws";
+            this.EventLog.Source = "winws";
             this.EventLog.Log = "Application" ;          
             this.CanHandlePowerEvent = true;
             this.CanHandleSessionChangeEvent = true;
@@ -35,6 +46,14 @@ namespace WindowsService
 
         protected override void OnStart(string[] args)
         {
+
+            envs = descriptor.EnvironmentVariables;
+            foreach (string key in envs.Keys)
+            {
+                LogEvent("envar " + key + '=' + envs[key]);
+            }
+
+
             base.OnStart(args);
         }
 
@@ -77,5 +96,51 @@ namespace WindowsService
         {
             base.OnSessionChange(changeDescription);
         }
+
+        public void LogEvent(String message)
+        {
+            if (systemShuttingdown)
+            {
+                /* NOP - cannot call EventLog because of shutdown. */
+            }
+            else
+            {
+                EventLog.WriteEntry(message);
+            }
+        }
+
+        public void LogEvent(String message, EventLogEntryType type)
+        {
+            if (systemShuttingdown)
+            {
+                /* NOP - cannot call EventLog because of shutdown. */
+            }
+            else
+            {
+                EventLog.WriteEntry(message, type);
+            }
+        }
+
+        private void WriteEvent(Exception exception)
+        {
+            WriteEvent(exception.Message + "\nStacktrace:" + exception.StackTrace);
+        }
+
+        private void WriteEvent(String message, Exception exception)
+        {
+            WriteEvent(message + "\nMessage:" + exception.Message + "\nStacktrace:" + exception.StackTrace);
+        }
+
+        private void WriteEvent(String message)
+        {
+            string logfilename = Path.Combine(descriptor.LogDirectory, descriptor.BaseName + ".wrapper.log");
+            StreamWriter log = new StreamWriter(logfilename, true);
+
+            log.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " - " + message);
+            log.Flush();
+            log.Close();
+        }
+
+
     }
 }
