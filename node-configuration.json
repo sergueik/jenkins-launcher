@@ -1,22 +1,10 @@
 {
   "capabilities": [
     {
-      "browserName": "chrome",
-      "version": "",
-      "platform": "WINDOWS",
-      "maxInstances": 5
-    },
-    {
-      "browserName": "internet explorer",
-      "version": "",
-      "platform": "WINDOWS",
-      "maxInstances": 1
-    },
-    {
       "browserName": "firefox",
       "version": "",
       "platform": "WINDOWS",
-      "maxInstances": 5
+      "maxInstances": 1
     }
   ],
   "configuration": {
@@ -27,9 +15,11 @@
     "nodePolling": 2000,
     "registerCycle": 10000,
     "cleanUpCycle": 2000,
-    "timeout": 30000,
+    "timeout": 300000,
     "register": true,
+    "loggingPrefs" : webdriver.logging.Level.ALL,
     "hubPort": 4444,
-    "hubHost": "10.240.200.214"
+    "hubHost": "127.0.0.1"
   }
 }
+
