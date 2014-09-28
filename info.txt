@@ -1,0 +1,1 @@
+For alternatives see http://unintelligible.org/blog/2009/07/28/installing-selenium-rc-as-a-windows-service/
