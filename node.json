@@ -1,0 +1,37 @@
+{
+  "capabilities": [
+    {
+      "browserName": "chrome",
+      "version": "",
+      "platform": "WINDOWS",
+      "maxInstances": 1
+    },
+    {
+      "browserName": "internet explorer",
+      "version": "",
+      "platform": "WINDOWS",
+      "maxInstances": 1
+    },
+    {
+      "browserName": "firefox",
+      "version": "",
+      "platform": "WINDOWS",
+      "maxInstances": 1
+    }
+  ],
+  "configuration": {
+    "role": "node",
+    "maxSession": 1,
+    "port": 5555,
+    "nodeTimeout": 120,
+    "nodePolling": 2000,
+    "registerCycle": 10000,
+    "cleanUpCycle": 2000,
+    "timeout": 300000,
+    "register": true,
+    "loggingPrefs" : webdriver.logging.Level.ALL,
+    "hubPort": 4444,
+    "hubHost": "127.0.0.1"
+  }
+}
+
