@@ -1,25 +1,42 @@
-$drive = 'c:'
+#Copyright (c) 2016,2021 Serguei Kouzmine
+#
+#Permission is hereby granted, free of charge, to any person obtaining a copy
+#of this software and associated documentation files (the "Software"), to deal
+#in the Software without restriction, including without limitation the rights
+#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#copies of the Software, and to permit persons to whom the Software is
+#furnished to do so, subject to the following conditions:
+#
+#The above copyright notice and this permission notice shall be included in
+#all copies or substantial portions of the Software.
+#
+#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+#THE SOFTWARE.
+
+$drive = ${env:temp}
+
 $selenium_node_home ="${drive}\selenium-local"
 $dummy_service_home = "${drive}\selenium-local\BasicService"
 $dummy_binary = 'WindowsService.exe'
 $binary_path = "${dummy_service_home}\WindowsService\bin\Debug\${dummy_binary}"
 
 $ServiceName = 'selenium-node'
-pushd $selenium_node_home  -erroraction  SilentlyContinue
+pushd $selenium_node_home -erroraction  SilentlyContinue
 set-location -Path $dummy_service_home
 <# 
 
-WindowsService.sln(2): Solution file error MSB5014: File format version is not r
-ecognized.  MSBuild can only read solution files between versions 7.0 and 9.0, i
-nclusive.
+WindowsService.sln(2): Solution file error MSB5014: File format version is not recognized.  MSBuild can only read solution files between versions 7.0 and 9.0, inclusive.
 #>
 
 
 $msbuild = "C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe"
-$msbuild = "C:\Windows\Microsoft.NET\Framework\v2.0.50727\MSBuild.exe"
+# $msbuild = "C:\Windows\Microsoft.NET\Framework\v2.0.50727\MSBuild.exe"
 invoke-expression -command "${msbuild} WindowsService.sln"
-
-
 set-location -path 'WindowsService\bin\Debug'
 copy-item -Path "*.*" -Destination $selenium_node_homr -force -Include '*' -recurse
 popd

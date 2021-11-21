@@ -5,13 +5,10 @@ using System.ServiceProcess;
 // using System.Configuration;
 
 
-namespace WindowsService
-{
+namespace WindowsService {
     [RunInstaller(true)]
-    public class WindowsServiceInstaller : Installer
-    {
-        public WindowsServiceInstaller()
-        {
+    public class WindowsServiceInstaller : Installer {
+        public WindowsServiceInstaller() {
             ServiceProcessInstaller serviceProcessInstaller = new ServiceProcessInstaller();
             ServiceInstaller serviceInstaller = new ServiceInstaller();
 
@@ -27,7 +24,7 @@ namespace WindowsService
             // This must be identical to the WindowsService.ServiceBase name
             // set in the constructor of WindowsService.cs
 
-            serviceInstaller.ServiceName =  "winws";
+            serviceInstaller.ServiceName = "winws";
             this.Installers.Add(serviceProcessInstaller);
             this.Installers.Add(serviceInstaller);
         }

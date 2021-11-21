@@ -1,26 +1,18 @@
 using System;
 using System.Diagnostics;
 using System.ServiceProcess;
-// using System.Configuration;
-// using System.ServiceProcess;
-// using System.Management;
-// using Microsoft.Win32;
-
 using System.IO;
 using System.Collections.Generic;
 
 
-namespace WindowsService
-{
-    class WindowsService : ServiceBase
-    {
+namespace WindowsService {
+    class WindowsService : ServiceBase {
 
         private bool systemShuttingdown;
         private Dictionary<string, string> envs;
         private ServiceDescriptor descriptor;
 
-        public WindowsService()
-        {
+        public WindowsService() {
             this.ServiceName = "winws";
             this.EventLog.Source = "winws";
             this.EventLog.Log = "Application" ;          
@@ -37,31 +29,25 @@ namespace WindowsService
                 EventLog.CreateEventSource(this.EventLog.Source, this.EventLog.Log);
         }
 
-        static void Main()
-        {
+        static void Main() {
             ServiceBase.Run(new WindowsService());
         }
 
-        protected override void Dispose(bool disposing)
-        {
+        protected override void Dispose(bool disposing) {
             base.Dispose(disposing);
         }
 
-        protected override void OnStart(string[] args)
-        {
+        protected override void OnStart(string[] args) {
 
             envs = descriptor.EnvironmentVariables;
-            foreach (string key in envs.Keys)
-            {
-                LogEvent("envar " + key + '=' + envs[key]);
+            foreach (string key in envs.Keys) {
+                LogEvent("envar " + key + "=" + envs[key]);
             }
-
 
             base.OnStart(args);
         }
 
-        protected override void OnStop()
-        {
+        protected override void OnStop() {
             base.OnStop();
         }
 
@@ -70,13 +56,11 @@ namespace WindowsService
             base.OnPause();
         }
 
-        protected override void OnContinue()
-        {
+        protected override void OnContinue() {
             base.OnContinue();
         }
 
-        protected override void OnShutdown()
-        {
+        protected override void OnShutdown() {
             base.OnShutdown();
         }
 
