@@ -1,5 +1,12 @@
 ### Info
 
+A customized replica of [winsw](https://github.com/winsw/winsw) classic Windows Service facade that wraps and manages any application as a Windows service that only required to be deployed on generic Windows platforms with a .NET Framework 4.5 LTS or later versions installed. 
+
+### Note
+For systems without .NET Framework, the original [winsw](https://github.com/winsw/winsw) project provides native 64-bit and 32-bit executables based on __.NET__ __7__
+
+Patching the undocumented dependencies on weird quirks of the system will lead to chasing down every last one of them
+
 ### Usage
 
 * build project
@@ -63,3 +70,10 @@ SERVICE_NAME: winws
   * [Topshelf](https://github.com/Topshelf/Topshelf) - "service hosting framework" nuget package simplifying testing Windows services written in .NET
   * [example project](https://github.com/lampo1024/TopshelfDemoService) claiming to reach interactive user desktops from a service,  uses topshelf nuget 
   * memo [about desktop 0 restrictions](https://codedefault.com/p/launch-a-gui-application-from-a-windows-service-on-windows) (in Chinese)
+  * `DotNetCore.WindowsService` [project](https://github.com/PeterKottas/DotNetCore.WindowsService) and [nuget](https://www.nuget.org/pack$ages/DotNetCore.WindowsServices) and [source](https://github.com/icenorge/DotNetCore.WindowsServices)
+  * https://www.nuget.org/packages/Microsoft.Extensions.Hosting.WindowsServices 
+---
+
+### Author
+[Serguei Kouzmine](kouzmine_serguei@yahoo.com)
+
