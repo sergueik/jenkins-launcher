@@ -72,8 +72,10 @@ SERVICE_NAME: winws
   * memo [about desktop 0 restrictions](https://codedefault.com/p/launch-a-gui-application-from-a-windows-service-on-windows) (in Chinese)
   * `DotNetCore.WindowsService` [project](https://github.com/PeterKottas/DotNetCore.WindowsService) and [nuget](https://www.nuget.org/pack$ages/DotNetCore.WindowsServices) and [source](https://github.com/icenorge/DotNetCore.WindowsServices)
   * https://www.nuget.org/packages/Microsoft.Extensions.Hosting.WindowsServices 
----
+  * an full-Featured Alternative to NSSM, WinSW & FireDaemon Pro alternative multi .Net platform target (.Net 4.8 to ) with own __Servy Manager__ application and performance monitoring and scripting modules, and an own "roadmap" [repository](https://github.com/aelassas/servy) with 2000+(!) commits and a __Turn Any App into a Native Windows Service__ [codeproject article](https://www.codeproject.com/articles/servy-turn-any-app-into-a-native-windows-service-1)
 
+
+---
 ### Author
 [Serguei Kouzmine](kouzmine_serguei@yahoo.com)
 
